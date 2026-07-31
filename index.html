@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事工連結總覽</title>
+<style>
+  :root{
+    --bg:#211D1B;
+    --bg-card:#2A2422;
+    --bg-card-hover:#332C28;
+    --text:#F3EBDF;
+    --text-dim:#A79A8C;
+    --divider:#3D342F;
+    --amber:#E3B23C;
+    --amber-dim:rgba(227,178,60,0.14);
+    --blue:#5FA0B8;
+    --blue-dim:rgba(95,160,184,0.14);
+    --sage:#7FA37E;
+    --sage-dim:rgba(127,163,126,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(227,178,60,0.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:"PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding:32px 16px 64px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+
+  header{text-align:center;margin-bottom:28px;}
+  .lantern{width:40px;height:40px;margin:0 auto 14px;display:block;}
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.28em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin-bottom:10px;
+    font-weight:600;
+  }
+  h1{
+    font-family:"Songti TC","Noto Serif TC",serif;
+    font-size:26px;
+    font-weight:700;
+    margin:0 0 6px;
+    letter-spacing:0.02em;
+  }
+  .sub{color:var(--text-dim);font-size:13.5px;margin:0;}
+
+  .search-box{
+    margin:24px 0 8px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:13px 16px 13px 42px;
+    background:var(--bg-card);
+    border:1px solid var(--divider);
+    border-radius:12px;
+    color:var(--text);
+    font-size:15px;
+    font-family:inherit;
+    outline:none;
+    transition:border-color .15s ease;
+  }
+  .search-box input:focus{border-color:var(--amber);}
+  .search-box input::placeholder{color:var(--text-dim);}
+  .search-icon{
+    position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    width:16px;height:16px;color:var(--text-dim);pointer-events:none;
+  }
+  .result-count{
+    font-size:12px;color:var(--text-dim);margin:10px 4px 22px;min-height:14px;
+  }
+
+  .category{margin-bottom:26px;}
+  .cat-head{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:12px;padding-left:2px;
+  }
+  .cat-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .cat-title{font-size:15.5px;font-weight:700;letter-spacing:0.01em;}
+  .cat-count{font-size:12px;color:var(--text-dim);margin-left:auto;}
+
+  .cat-amber .cat-dot{background:var(--amber);box-shadow:0 0 8px rgba(227,178,60,0.6);}
+  .cat-blue .cat-dot{background:var(--blue);box-shadow:0 0 8px rgba(95,160,184,0.6);}
+  .cat-sage .cat-dot{background:var(--sage);box-shadow:0 0 8px rgba(127,163,126,0.6);}
+
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--divider);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .cat-amber .card{border-left:3px solid var(--amber);}
+  .cat-blue .card{border-left:3px solid var(--blue);}
+  .cat-sage .card{border-left:3px solid var(--sage);}
+
+  a.link-row{
+    display:flex;align-items:center;gap:12px;
+    padding:15px 16px;
+    text-decoration:none;color:inherit;
+    border-bottom:1px solid var(--divider);
+    min-height:48px;
+    transition:background .12s ease;
+  }
+  .card a.link-row:last-child{border-bottom:none;}
+  a.link-row:hover, a.link-row:active{background:var(--bg-card-hover);}
+
+  .link-main{flex:1;min-width:0;}
+  .link-title{font-size:14.5px;font-weight:600;line-height:1.4;}
+  .link-note{font-size:12px;color:var(--text-dim);margin-top:2px;}
+
+  .tag{
+    font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:20px;
+    white-space:nowrap;flex-shrink:0;letter-spacing:0.02em;
+  }
+  .tag-view{background:var(--amber-dim);color:var(--amber);}
+  .tag-admin{background:var(--blue-dim);color:var(--blue);}
+  .tag-dev{background:rgba(167,154,140,0.16);color:var(--text-dim);}
+  .tag-public{background:var(--sage-dim);color:var(--sage);}
+
+  .arrow{width:14px;height:14px;color:var(--text-dim);flex-shrink:0;}
+
+  .empty-state{
+    text-align:center;color:var(--text-dim);font-size:13.5px;
+    padding:40px 20px;display:none;
+  }
+
+  footer{
+    margin-top:36px;padding-top:20px;border-top:1px solid var(--divider);
+    font-size:11.5px;color:var(--text-dim);line-height:1.7;text-align:center;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <svg class="lantern" viewBox="0 0 40 40" fill="none">
+      <path d="M20 3 L23 8 L17 8 Z" fill="#E3B23C"/>
+      <rect x="14" y="8" width="12" height="4" rx="1.5" fill="#8C6D2A"/>
+      <path d="M15 12 Q13 20 15 28 Q20 31 25 28 Q27 20 25 12 Z" fill="#E3B23C" opacity="0.9"/>
+      <ellipse cx="20" cy="20" rx="3.2" ry="5" fill="#FDF3D8" opacity="0.85"/>
+      <rect x="14" y="28" width="12" height="4" rx="1.5" fill="#8C6D2A"/>
+      <path d="M20 32 L20 37" stroke="#8C6D2A" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div class="eyebrow">卓越行道會 · 事工連結</div>
+    <h1>連結總覽</h1>
+    <p class="sub">找連結不迷路，點一下直接抵達</p>
+  </header>
+
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="9" cy="9" r="6.5"/>
+      <path d="M14 14 L18 18" stroke-linecap="round"/>
+    </svg>
+    <input id="searchInput" type="text" placeholder="搜尋連結名稱、專案或說明…" autocomplete="off">
+  </div>
+  <div class="result-count" id="resultCount"></div>
+
+  <div id="categoryList"></div>
+  <div class="empty-state" id="emptyState">沒有找到符合的連結，換個關鍵字試試</div>
+
+  <footer>
+    圖示標籤說明：<span style="color:var(--amber)">查看</span>／<span style="color:var(--blue)">後台</span>／<span style="color:var(--text-dim)">開發用</span>／<span style="color:var(--sage)">公開表單</span><br>
+    部分連結需要對應權限才能開啟，若顯示「無法存取」請先確認登入帳號與權限
+  </footer>
+
+</div>
+
+<script>
+const DATA = [
+  {
+    name: "主日服事＆統計",
+    accent: "amber",
+    links: [
+      { title:"服事表及統計表總覽", note:"服事表及統計表總覽入口", url:"https://script.google.com/macros/s/AKfycbwd0govknGLtnlqeRRnO2hM4NMUcAr3UxWYuZhFCGF-uItin7XD9QkhBBStVOVtITOK/exec", tag:"view" },
+      { title:"主日服事表", note:"主日服事表", url:"https://docs.google.com/spreadsheets/d/1UjtKVXa48bkC3HHzYwB617OCitJBZRMXPpTZb5O0FZU/edit?gid=869323166#gid=869323166", tag:"admin" },
+      { title:"人數回報", note:"人數回報", url:"https://script.google.com/macros/s/AKfycbwd0govknGLtnlqeRRnO2hM4NMUcAr3UxWYuZhFCGF-uItin7XD9QkhBBStVOVtITOK/exec?page=attendance", tag:"view" },
+      { title:"人數回報後台", note:"人數回報後台", url:"https://docs.google.com/spreadsheets/d/10IYcBjsXH5bx0rin-zwhmipwC9Zou1UImX4NHrXlDhQ/edit?gid=1029711545#gid=1029711545", tag:"admin" },
+      { title:"服事表＋回報系統 專案編輯器", note:"卓越行道會服事表＋回報系統", url:"https://script.google.com/u/0/home/projects/1EK6l6OwEsZUOn7bYrbUHAq3QqIMqCocEsUh-oU6ZBeA_zyIdycBChLQ_/edit", tag:"dev" }
+    ]
+  },
+  {
+    name: "受洗資料＆統計",
+    accent: "blue",
+    links: [
+      { title:"受洗統計總覽", note:"受洗統計總覽", url:"https://script.google.com/macros/s/AKfycbxSGDXKI6FhwPAIExi0LmU_GQHWSNLlAg4XAyCjly7-hsL96D8n0JG5Rqp5VczcnM93/exec", tag:"view" },
+      { title:"受洗名單後台", note:"卓越行道會受洗名單後台", url:"https://docs.google.com/spreadsheets/d/1NGnJc5YKnUIX8bYZf4lH8UPsfC37NVomJutPLyJCodw/edit?gid=0#gid=0", tag:"admin" },
+      { title:"受洗管理系統 專案編輯器", note:"受洗管理系統", url:"https://script.google.com/u/0/home/projects/1g7YDUhrkK8nVcMjQjhCwEQKohXEOF8LbWeOXfEurf-OjXx-FFkdeBSRw/edit", tag:"dev" },
+      { title:"受洗報名表", note:"受洗報名表（含回覆管理）", url:"https://docs.google.com/forms/d/1KnBkixArEGJT9RUW9omwEKxjGmQTx9hbY5ZVB-pdsA4/edit#responses", tag:"admin" },
+      { title:"受洗報名回覆", note:"受洗報名回覆", url:"https://docs.google.com/spreadsheets/d/1-Uw8YD4LzSC1zvjcZ8AjKrzcu7BAxdxHgtBm655wWm4/edit?resourcekey=&gid=1189967457#gid=1189967457", tag:"admin" },
+      { title:"受洗證書申請表", note:"開放給會友填寫", url:"https://docs.google.com/forms/d/e/1FAIpQLSd58JA1x7lIibYNR4xu0DV1Z9Ffh71FsgGbWr9dpN9thJcK0A/viewform", tag:"public" },
+      { title:"受洗證書申請表回覆", note:"受洗證書申請表回覆", url:"https://docs.google.com/spreadsheets/d/1nv-7SbDLmQ-5CK7PUY4M4mTBnNZ2HBrUuX6dJH2ST_Y/edit?resourcekey=&gid=1291618843#gid=1291618843", tag:"admin" }
+    ]
+  },
+  {
+    name: "小家參照",
+    accent: "sage",
+    links: [
+      { title:"小家參照表後台", note:"小家參照表後台", url:"https://docs.google.com/spreadsheets/d/15bRkYyj8CNV6wm_e3-TrBtQHyYe3d6k-HOONp7GSELc/edit?gid=828099683#gid=828099683", tag:"admin" },
+      { title:"小家參照 專案編輯器", note:"小家參照專案編輯器", url:"https://script.google.com/u/0/home/projects/1vQyKyjUur3Or87CW2g1gU_5cI-4k5bNJvbDQw_xA17M6iKoGxtGkx6Kx/edit", tag:"dev" }
+    ]
+  }
+];
+
+const TAG_LABEL = { view:"查看", admin:"後台", dev:"開發用", public:"公開表單" };
+const TAG_CLASS = { view:"tag-view", admin:"tag-admin", dev:"tag-dev", public:"tag-public" };
+
+const listEl = document.getElementById('categoryList');
+const emptyEl = document.getElementById('emptyState');
+const countEl = document.getElementById('resultCount');
+const inputEl = document.getElementById('searchInput');
+
+const ARROW_SVG = '<svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4 L13 10 L7 16" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function render(filter){
+  const q = (filter || '').trim().toLowerCase();
+  listEl.innerHTML = '';
+  let totalShown = 0;
+
+  DATA.forEach(cat => {
+    const matched = cat.links.filter(l =>
+      !q ||
+      l.title.toLowerCase().includes(q) ||
+      l.note.toLowerCase().includes(q) ||
+      cat.name.toLowerCase().includes(q)
+    );
+    if (matched.length === 0) return;
+    totalShown += matched.length;
+
+    const catDiv = document.createElement('div');
+    catDiv.className = `category cat-${cat.accent}`;
+
+    const head = document.createElement('div');
+    head.className = 'cat-head';
+    head.innerHTML = `<span class="cat-dot"></span><span class="cat-title">${cat.name}</span><span class="cat-count">${matched.length} 個連結</span>`;
+    catDiv.appendChild(head);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    matched.forEach(l => {
+      const a = document.createElement('a');
+      a.className = 'link-row';
+      a.href = l.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.innerHTML = `
+        <div class="link-main">
+          <div class="link-title">${l.title}</div>
+          <div class="link-note">${l.note}</div>
+        </div>
+        <span class="tag ${TAG_CLASS[l.tag]}">${TAG_LABEL[l.tag]}</span>
+        ${ARROW_SVG}
+      `;
+      card.appendChild(a);
+    });
+    catDiv.appendChild(card);
+    listEl.appendChild(catDiv);
+  });
+
+  emptyEl.style.display = totalShown === 0 ? 'block' : 'none';
+  countEl.textContent = q ? `找到 ${totalShown} 筆結果` : '';
+}
+
+inputEl.addEventListener('input', e => render(e.target.value));
+render('');
+</script>
+</body>
+</html>
