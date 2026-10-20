@@ -18,6 +18,7 @@
     --blue-dim:rgba(95,160,184,0.14);
     --sage:#7FA37E;
     --sage-dim:rgba(127,163,126,0.14);
+    --rose:#D98A7E;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -90,6 +91,7 @@
   .cat-amber .cat-dot{background:var(--amber);box-shadow:0 0 8px rgba(227,178,60,0.6);}
   .cat-blue .cat-dot{background:var(--blue);box-shadow:0 0 8px rgba(95,160,184,0.6);}
   .cat-sage .cat-dot{background:var(--sage);box-shadow:0 0 8px rgba(127,163,126,0.6);}
+  .cat-rose .cat-dot{background:var(--rose);box-shadow:0 0 8px rgba(217,138,126,0.6);}
 
   .card{
     background:var(--bg-card);
@@ -100,6 +102,7 @@
   .cat-amber .card{border-left:3px solid var(--amber);}
   .cat-blue .card{border-left:3px solid var(--blue);}
   .cat-sage .card{border-left:3px solid var(--sage);}
+  .cat-rose .card{border-left:3px solid var(--rose);}
 
   a.link-row{
     display:flex;align-items:center;gap:12px;
@@ -180,6 +183,13 @@
 
 <script>
 const DATA = [
+  {
+    name: "個人",
+    accent: "rose",
+    links: [
+      { title:"我的每日工作台", note:"個人每日工作台", url:"https://script.google.com/macros/s/AKfycbw3Pk-gOA45nA15afVCAYco6J-gbRWfDWPB8RjYzYbqvGOHVufG3rJWizEvV7EIa3c/exec", tag:"view" }
+    ]
+  },
   {
     name: "主日服事＆統計",
     accent: "amber",
