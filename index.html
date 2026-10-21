@@ -19,6 +19,7 @@
     --sage:#7FA37E;
     --sage-dim:rgba(127,163,126,0.14);
     --rose:#D98A7E;
+    --violet:#A893CC;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -92,6 +93,7 @@
   .cat-blue .cat-dot{background:var(--blue);box-shadow:0 0 8px rgba(95,160,184,0.6);}
   .cat-sage .cat-dot{background:var(--sage);box-shadow:0 0 8px rgba(127,163,126,0.6);}
   .cat-rose .cat-dot{background:var(--rose);box-shadow:0 0 8px rgba(217,138,126,0.6);}
+  .cat-violet .cat-dot{background:var(--violet);box-shadow:0 0 8px rgba(168,147,204,0.6);}
 
   .card{
     background:var(--bg-card);
@@ -103,6 +105,7 @@
   .cat-blue .card{border-left:3px solid var(--blue);}
   .cat-sage .card{border-left:3px solid var(--sage);}
   .cat-rose .card{border-left:3px solid var(--rose);}
+  .cat-violet .card{border-left:3px solid var(--violet);}
 
   a.link-row{
     display:flex;align-items:center;gap:12px;
@@ -221,6 +224,19 @@ const DATA = [
     links: [
       { title:"小家參照表後台", note:"小家參照表後台", url:"https://docs.google.com/spreadsheets/d/15bRkYyj8CNV6wm_e3-TrBtQHyYe3d6k-HOONp7GSELc/edit?gid=828099683#gid=828099683", tag:"admin" },
       { title:"小家參照 專案編輯器", note:"小家參照專案編輯器", url:"https://script.google.com/u/0/home/projects/1vQyKyjUur3Or87CW2g1gU_5cI-4k5bNJvbDQw_xA17M6iKoGxtGkx6Kx/edit", tag:"dev" }
+    ]
+  },
+  {
+    name: "牧養相關",
+    accent: "violet",
+    links: [
+      { title:"介紹實習小家長", note:"介紹實習小家長", url:"https://forms.gle/gu8yhTfm3XD5RSR39", tag:"public" },
+      { title:"按立正式小家長", note:"按立正式小家長", url:"https://forms.gle/N2gEiZiFyJuGurua8", tag:"public" },
+      { title:"介紹實習大家長", note:"介紹實習大家長", url:"https://forms.gle/ac3PzVNewGCG2tTz9", tag:"public" },
+      { title:"按立正式大家長", note:"按立正式大家長", url:"https://forms.gle/8QNF4QZGsCZb7Mpf6", tag:"public" },
+      { title:"【領袖填寫】婚前輔導推薦函", note:"【領袖填寫】婚前輔導推薦函", url:"https://forms.gle/mtAapYhja2NwM4DN7", tag:"public" },
+      { title:"婚前輔導申請表A", note:"婚前輔導申請表A", url:"https://forms.gle/kz7367dx4JJMe7yd8", tag:"public" },
+      { title:"婚前輔導申請表B（二婚）", note:"婚前輔導申請表B（二婚）", url:"https://forms.gle/4uR1o58DPmtGyjgd8", tag:"public" }
     ]
   }
 ];
